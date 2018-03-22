@@ -1,8 +1,12 @@
 ## What are common database development mistakes made by application developers?
 
-_source https://stackoverflow.com/questions/621884/database-development-mistakes-made-by-application-developers_
+## Các sai lầm cơ bản trong phát triển cơ sở dữ liệu của các nhà phát triển ứng dụng?
+
+_nguồn https://stackoverflow.com/questions/621884/database-development-mistakes-made-by-application-developers_
 
 **1. Not using appropriate indices**
+
+**1. Không sử dụng các chỉ số thích hợp**
 
 This is a relatively easy one but still it happens all the time. Foreign keys should have indexes on them. If you're using a field in a 
 
