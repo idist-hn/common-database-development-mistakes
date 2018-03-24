@@ -4,47 +4,43 @@
 
 _nguồn https://stackoverflow.com/questions/621884/database-development-mistakes-made-by-application-developers_
 
-**1. Not using appropriate indices**
-
 **1. Không sử dụng các chỉ số thích hợp**
 
-This is a relatively easy one but still it happens all the time. Foreign keys should have indexes on them. If you're using a field in a 
+Đây là điều khá đơn giản nhưng nó lại diễn ra khá thường xuyên. Các khoá ngoại thì nên được đánh index (chỉ mục). Nếu bạn sử dụng 1 trường vào mệnh đề WHERE thì bạn nên đánh index cho trường đó. Các chỉ mục như vậy thường chứa cả các cột trong câu truy vấn mà bạn cần thực thi.
 
-WHERE you should (probably) have an index on it. Such indexes should often cover multiple columns based on the queries you need to execute.
+**2. Không thực thi đầy đủ các tham chiếu**
 
-**2. Not enforcing referential integrity**
+Cơ sở dữ liệu của bạn có thể thay đổi ở bất cứ đâu nhưng nếu cơ sở dữ liệu của bạn có hỗ trợ tham chiếu đầy đủ khi tất cả các khoá ngoại đều trỏ đến một thực thể tồn tại, bạn nên sử dụng nó. Nó khá là bình thường khi gặp lỗi này trên cơ sở dữ liệu MySQL. Tôi không tin là MyISAM có hỗ trợ nó. nhưng InnoDB thì có. Bạn sẽ phải thì những người có sử dụng MyISAM hoặc những người sử dụng InnoDB nhưng lại không có ai sử dụng nó cả. ( nó ở đây là tham chiếu đầy đủ).
 
-Your database may vary here but if your database supports referential integrity--meaning that all foreign keys are guaranteed to point to an entity that exists--you should be using it.
+Xem thêm:
 
-It's quite common to see this failure on MySQL databases. I don't believe MyISAM supports it. InnoDB does. You'll find people who are using MyISAM or those that are using InnoDB but aren't using it anyway.
-
-More here:
-
-- [How important are constraints like NOT NULL and FOREIGN KEY if I’ll always control my database input with php?](https://stackoverflow.com/questions/382309/how-important-are-constraints-like-not-null-and-foreign-key-if-ill-always-contr)
-- [Are foreign keys really necessary in a database design?](https://stackoverflow.com/questions/18717/are-foreign-keys-really-necessary-in-a-database-design)
-- [Are foreign keys really necessary in a database design?](http://www.diovo.com/2008/08/are-foreign-keys-really-necessary-in-a-database-design/)
+- [Các ràng buộc như NOT NULL và FOREIGN KEY quan trọng như thế nào nếu bạn luôn luôn phải kiểm soát dữ liệu đầu vào cơ sở dữ liệu với php?](https://stackoverflow.com/questions/382309/how-important-are-constraints-like-not-null-and-foreign-key-if-ill-always-contr)
+- [Các khoá ngoại có thực sự cần thiết trong việc thiết kế cơ sở dữ liệu?](https://stackoverflow.com/questions/18717/are-foreign-keys-really-necessary-in-a-database-design)
+- [Các khoá ngoại có thực sự cần thiết trong việc thiết kế cơ sở dữ liệu?](http://www.diovo.com/2008/08/are-foreign-keys-really-necessary-in-a-database-design/)
 
 **3. Using natural rather than surrogate (technical) primary keys**
 
-Natural keys are keys based on externally meaningful data that is (ostensibly) unique. Common examples are product codes, two-letter state codes (US), social security numbers and so on. Surrogate or technical primary keys are those that have absolutely no meaning outside the system. They are invented purely for identifying the entity and are typically auto-incrementing fields (SQL Server, MySQL, others) or sequences (most notably Oracle).
+**3. Sử dụng các khoá tự nhiên tốt hơn các khoá đại diện ( các khoá kĩ thuật )**
 
-In my opinion you should **always** use surrogate keys. This issue has come up in these questions:
+Các khoá tự nhiên là những khoá cơ bản nhất dựa trên các dữ liệu đời thực có ý nghĩa duy nhất. Ví dụ như các mã sản phẩm, 2 kí tự trong mã bang của Mỹ, hoặc ví dụ như mã số an sinh xã hội ( giống số chứng minh nhân dân). Các khoá chính thay thế hoặc các khoá chính kĩ thuật là các khoá hoàn toàn không có ý nghĩa bên ngoài hệ thống. Chúng được tạo ra chỉ để xác định các thực thể và thường là những trường tự động tăng ( ví dụ như SQL Server, MySQL,...) hoặc sử dụng các chuỗi (đáng chú ý nhất như Oracle).
 
-- [How do you like your primary keys?](https://stackoverflow.com/questions/404040/how-do-you-like-your-primary-keys)
-- [What's the best practice for primary keys in tables?](https://stackoverflow.com/questions/337503/whats-the-best-practice-for-primary-keys-in-tables)
-- [Which format of primary key would you use in this situation.](https://stackoverflow.com/questions/506164/which-format-of-primary-key-would-you-use-in-this-situation)
-- [Surrogate vs. natural/business keys](https://stackoverflow.com/questions/63090/surrogate-vs-natural-business-keys)
-- [Should I have a dedicated primary key field?](https://stackoverflow.com/questions/166750/should-i-have-a-dedicated-primary-key-field)
+Theo ý kiến của tôi thì bạn nên **luôn luôn** sử dụng các khoá đại diện. Vấn đề này đã được đề cập trong những câu hỏi sau:
 
-This is a somewhat controversial topic on which you won't get universal agreement. While you may find some people, who think natural keys are in some situations OK, you won't find any criticism of surrogate keys other than being arguably unnecessary. That's quite a small downside if you ask me.
+- [Bạn cảm thấy khoá chính của mình như thế nào?](https://stackoverflow.com/questions/404040/how-do-you-like-your-primary-keys)
+- [Thói quen tốt nhất của bạn về khoá chính trong bảng là gì?](https://stackoverflow.com/questions/337503/whats-the-best-practice-for-primary-keys-in-tables)
+- [Bạn sử dụng định dạng nào cho khoá chính trong trường hợp này?](https://stackoverflow.com/questions/506164/which-format-of-primary-key-would-you-use-in-this-situation)
+- [So sánh khoá thay thế với khoá tự nhiên](https://stackoverflow.com/questions/63090/surrogate-vs-natural-business-keys)
+- [Tôi có nên sử dụng 1 trường riêng để làm khoá chính không?](https://stackoverflow.com/questions/166750/should-i-have-a-dedicated-primary-key-field)
 
-Remember, even [countries can cease to exist](http://en.wikipedia.org/wiki/ISO_3166-1) (for example, Yugoslavia).
+Đây là vấn đề gây nhiều tranh cãi mà bạn sẽ không thể tìm được quan điểm chung. Trong khi bạn có thể tìm được một số người nghĩ là khoá tự nhiên rất tốt trong một số trường hợp, bạn cũng sẽ không tìm thấy bất kì quan điểm trái ngược nào như việc khoá đại diện không cần thiết. Đây là 1 nhược điểm nhỏ nếu bạn hỏi tôi.
 
-**4. Writing queries that require 
+Nhớ rằng, [các quốc gia còn có thể không tồn tại](http://en.wikipedia.org/wiki/ISO_3166-1) (ví dụ như Yugoslavia).
 
-DISTINCT to work**
+**4. Viết những câu truy vấn cần thiết
 
-You often see this in ORM-generated queries. Look at the log output from Hibernate and you'll see all the queries begin with:
+sử dụng DISTINCT để làm việc**
+
+Bạn thường thấy cái này trong những câu truy vấn được tạo bởi ORM. Kiểm tra các log đầu ra từ Hibernate và bạn sẽ thấy các câu truy vấn bắt đầu với:
 
 SELECT DISTINCT ...
 
