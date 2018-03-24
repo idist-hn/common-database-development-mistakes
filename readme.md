@@ -18,8 +18,6 @@ Xem thêm:
 - [Các khoá ngoại có thực sự cần thiết trong việc thiết kế cơ sở dữ liệu?](https://stackoverflow.com/questions/18717/are-foreign-keys-really-necessary-in-a-database-design)
 - [Các khoá ngoại có thực sự cần thiết trong việc thiết kế cơ sở dữ liệu?](http://www.diovo.com/2008/08/are-foreign-keys-really-necessary-in-a-database-design/)
 
-**3. Using natural rather than surrogate (technical) primary keys**
-
 **3. Sử dụng các khoá tự nhiên tốt hơn các khoá đại diện ( các khoá kĩ thuật )**
 
 Các khoá tự nhiên là những khoá cơ bản nhất dựa trên các dữ liệu đời thực có ý nghĩa duy nhất. Ví dụ như các mã sản phẩm, 2 kí tự trong mã bang của Mỹ, hoặc ví dụ như mã số an sinh xã hội ( giống số chứng minh nhân dân). Các khoá chính thay thế hoặc các khoá chính kĩ thuật là các khoá hoàn toàn không có ý nghĩa bên ngoài hệ thống. Chúng được tạo ra chỉ để xác định các thực thể và thường là những trường tự động tăng ( ví dụ như SQL Server, MySQL,...) hoặc sử dụng các chuỗi (đáng chú ý nhất như Oracle).
@@ -36,23 +34,22 @@ Theo ý kiến của tôi thì bạn nên **luôn luôn** sử dụng các khoá
 
 Nhớ rằng, [các quốc gia còn có thể không tồn tại](http://en.wikipedia.org/wiki/ISO_3166-1) (ví dụ như Yugoslavia).
 
-**4. Viết những câu truy vấn cần thiết
-
-sử dụng DISTINCT để làm việc**
+**4. Viết những câu truy vấn cần thiết sử dụng DISTINCT để làm việc**
 
 Bạn thường thấy cái này trong những câu truy vấn được tạo bởi ORM. Kiểm tra các log đầu ra từ Hibernate và bạn sẽ thấy các câu truy vấn bắt đầu với:
 
 SELECT DISTINCT ...
 
-This is a bit of a shortcut to ensuring you don't return duplicate rows and thus get duplicate objects. You'll sometimes see people doing this as well. If you see it too much it's a real red flag. Not that 
+Đây là một đoạn ngắn để đảm bảo không trả về những bản ghi bị lặp và lấy những đối tượng lặp. Đôi khi bạn sẽ gặp những người làm việc này. Nếu bạn thấy nó nhiều lần thì đó thực sự đáng báo động. Không phải DISTINCT không tốt hay nó không có những ứng dụng phù hợp. Nó thật sự không phải 1 trường đại diện hoặc trường thay thế để viết các câu truy vấn chính xác.
 
-DISTINCT is bad or doesn't have valid applications. It does (on both counts) but it's not a surrogate or a stopgap for writing correct queries.
 
-From [Why I Hate DISTINCT](http://weblogs.sqlteam.com/markc/archive/2008/11/11/60752.aspx):
+Từ bài viết [Tại sao tôi ghép DISTINCT](http://weblogs.sqlteam.com/markc/archive/2008/11/11/60752.aspx):
 
 > Where things start to go sour in my opinion is when a developer is building substantial query, joining tables together, and all of a sudden he realizes that it **looks** like he is getting duplicate (or even more) rows and his immediate response...his "solution" to this "problem" is to throw on the DISTINCT keyword and **POOF** all his troubles go away.
 
-**5. Favouring aggregation over joins**
+> Theo tôi lúc mà mọi thứ trở nên khó chịu khi các lập trình viên xây dựng 1 lượng truy vấn lớn, kết hợp các bảng với nhau, và bất ngờ khi anh ta nhận ra là anh ta đang lấy cả các bản ghi bị trùng lặp (thậm trí rất nhiều) và anh ta phản ứng lại ngay lập tức... Các giải pháp của anh ta cho vấn đề này là sử dụng khoá DISTINCT và khiến tất cả các lỗi này biến mất.
+
+**5. Khuyến khích tập hợp các kết nối**
 
 Another common mistake by database application developers is to not realize how much more expensive aggregation (ie the 
 
