@@ -20,7 +20,7 @@ Xem thêm:
 
 **3. Sử dụng các khoá tự nhiên tốt hơn các khoá đại diện ( các khoá kĩ thuật )**
 
-Các khoá tự nhiên là những khoá cơ bản nhất dựa trên các dữ liệu đời thực có ý nghĩa duy nhất. Ví dụ như các mã sản phẩm, 2 kí tự trong mã bang của Mỹ, hoặc ví dụ như mã số an sinh xã hội ( giống số chứng minh nhân dân). Các khoá chính thay thế hoặc các khoá chính kĩ thuật là các khoá hoàn toàn không có ý nghĩa bên ngoài hệ thống. Chúng được tạo ra chỉ để xác định các thực thể và thường là những trường tự động tăng ( ví dụ như SQL Server, MySQL,...) hoặc sử dụng các chuỗi (đáng chú ý nhất như Oracle).
+Các khoá tự nhiên là những khoá cơ bản nhất dựa trên các dữ liệu đời thực có ý nghĩa duy nhất. Ví dụ như các mã sản phẩm, các mã code với 2 trạng thái (two-letter state codes), mã số an sinh xã hội ( giống số chứng minh nhân dân). Các khoá chính đại die hoặc các khoá chính kĩ thuật là các khoá hoàn toàn không có ý nghĩa bên ngoài hệ thống. Chúng được tạo ra chỉ để xác định các thực thể và thường là những trường tự động tăng ( ví dụ như SQL Server, MySQL,...) hoặc sử dụng các chuỗi (đáng chú ý nhất như Oracle). 
 
 Theo ý kiến của tôi thì bạn nên **luôn luôn** sử dụng các khoá đại diện. Vấn đề này đã được đề cập trong những câu hỏi sau:
 
@@ -40,16 +40,16 @@ Bạn thường thấy cái này trong những câu truy vấn được tạo b�
 
 SELECT DISTINCT ...
 
-Đây là một đoạn ngắn để đảm bảo không trả về những bản ghi bị lặp và lấy những đối tượng lặp. Đôi khi bạn sẽ gặp những người làm việc này. Nếu bạn thấy nó nhiều lần thì đó thực sự đáng báo động. Không phải DISTINCT không tốt hay nó không có những ứng dụng phù hợp. Nó thật sự không phải 1 trường đại diện hoặc trường thay thế để viết các câu truy vấn chính xác.
+Đây là một mẹo nhỏ để đảm bảo không trả về những bản ghi bị lặp và lấy những đối tượng lặp. Đôi khi bạn sẽ gặp những người làm việc này. Nếu bạn thấy nó nhiều lần thì đó thực sự đáng báo động. Không phải DISTINCT không tốt hay nó không có những ứng dụng phù hợp. Nó thật sự không phải 1 trường đại diện hoặc trường thay thế để viết các câu truy vấn chính xác.
 
 
 Từ bài viết [Tại sao tôi ghép DISTINCT](http://weblogs.sqlteam.com/markc/archive/2008/11/11/60752.aspx):
 
 > Where things start to go sour in my opinion is when a developer is building substantial query, joining tables together, and all of a sudden he realizes that it **looks** like he is getting duplicate (or even more) rows and his immediate response...his "solution" to this "problem" is to throw on the DISTINCT keyword and **POOF** all his troubles go away.
 
-> Theo tôi lúc mà mọi thứ trở nên khó chịu khi các lập trình viên xây dựng 1 lượng truy vấn lớn, kết hợp các bảng với nhau, và bất ngờ khi anh ta nhận ra là anh ta đang lấy cả các bản ghi bị trùng lặp (thậm trí rất nhiều) và anh ta phản ứng lại ngay lập tức... Các giải pháp của anh ta cho vấn đề này là sử dụng khoá DISTINCT và khiến tất cả các lỗi này biến mất.
+> Theo tôi lúc mà mọi thứ trở nên khó chịu khi các lập trình viên đang xây dựng 1 lượng truy vấn lớn, kết hợp các bảng với nhau, và bất ngờ khi anh ta nhận ra là anh ta đang lấy cả các bản ghi bị trùng lặp (thậm trí rất nhiều) và anh ta phản ứng lại ngay lập tức... Các giải pháp của anh ta cho vấn đề này là sử dụng từ khoá DISTINCT và khiến tất cả các lỗi này biến mất.
 
-**5. Khuyến khích tập hợp các kết nối**
+**5. Khuyến khích dùng phép hợp các tập**
 
 Một lỗi thường gặp nữa về cơ sở dữ liệu của các lập trình viên là không phát hiện thường mất nhiều công sức hơn (mệnh đề GROUP BY) mệnh đề join.
 
@@ -93,7 +93,7 @@ Ví dụ:
 - Ted có nhiều quyền, 1 trong số đó là Employee;
 - Intel là 1 tổ chức, là 1 tập con của Party;
 - Intel có nhiều quyền, 1 trong số đó là Employer;
-- Intel tuyển dụng Ted, nghĩa là có quan hệ giữa các luật tương ứng của chúng.
+- Intel tuyển dụng Ted, nghĩa là có quan hệ giữa các vai trò tương ứng của chúng.
 
 Do vậy cần 5 bảng để kết nối Ted với nhà tuyển dụng. Giả sử các nhân viên là Persons (không phải 1 tổ chức) và cung cấp cho anh ấy các view hỗ trợ:
 
