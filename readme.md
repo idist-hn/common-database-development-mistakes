@@ -1,4 +1,4 @@
-## What are common database development mistakes made by application developers?
+
 
 ## Các sai lầm cơ bản trong phát triển cơ sở dữ liệu của các nhà phát triển ứng dụng?
 
@@ -6,7 +6,7 @@ _nguồn https://stackoverflow.com/questions/621884/database-development-mistake
 
 **1. Không sử dụng các chỉ số thích hợp**
 
-Đây là điều khá đơn giản nhưng nó lại diễn ra khá thường xuyên. Các khoá ngoại thì nên được đánh index (chỉ mục). Nếu bạn sử dụng 1 trường vào mệnh đề WHERE thì bạn nên đánh index cho trường đó. Các chỉ mục như vậy thường chứa cả các cột trong câu truy vấn mà bạn cần thực thi.
+Đây là điều khá đơn giản nhưng nó lại diễn ra khá thường xuyên. Các khoá ngoại thì nên được đánh index (chỉ mục). Nếu bạn sử dụng 1 trường trong mệnh đề WHERE thì bạn nên đánh index cho trường đó. Các chỉ mục như vậy thường chứa cả các cột trong câu truy vấn mà bạn cần thực thi.
 
 **2. Không thực thi đầy đủ các tham chiếu**
 
@@ -51,7 +51,7 @@ Từ bài viết [Tại sao tôi ghép DISTINCT](http://weblogs.sqlteam.com/mark
 
 **5. Khuyến khích tập hợp các kết nối**
 
-Một lỗi thường gặp nữa về cơ sở dữ liệu của các lập trình viên là không phát hiện thường mất nhiều công sức hơn (mệnh đề GROUP BY) mệnh đề join.
+Một trong những lỗi phổ biến của các nhà phát triển ứng dụng cơ sở dữ liệu là không nhận ra phép hợp(ví dụ như mệnh đề GROUP BY) tốn kém hơn thế nào so với các phép nối.
 
 Để tôi gợi ý 1 ý tưởng về vấn đề phổ biến này, tôi đã viết về chủ đề này vài lần những lại bị vote down. Ví dụ:
 
@@ -114,7 +114,7 @@ Và bạn có 1 view rất đơn giản về các dữ liệu bạn muốn nhữ
 
 Dữ liệu được cung cấp cho người dùng thông qua các Urls, các form dữ liệu **và cookies** nên luôn luôn được coi là không tốt và cần được lọc. Chắc chắn là bạn đang nhận được những gì mình mong đợi
 
-**8. Không sử dụng các câu lệnh dạng chờ**
+**8. Không sử dụng các câu lệnh chuẩn bị**
 
 Các câu lệnh chuẩn bị là khi bạn biên dịch 1 truy vấn khuyết dữ liệu được sử dụng trong các lệnh thêm, cập nhật và mệnh đề WHERE sẽ cung cấp dữ liệu cho nó sau. Ví dụ:
 
