@@ -137,64 +137,68 @@ Các câu lệnh được chuẩn bị cũng bảo vệ bạn tốt hơn với c
 
 **9. Thiếu chuẩn hoá**
 
-[Chuẩn hoá cơ sở dữ liệu](http://en.wikipedia.org/wiki/Database_normalization) is basically the process of optimizing database design or how you organize your data into tables.
+[Chuẩn hoá cơ sở dữ liệu](http://en.wikipedia.org/wiki/Database_normalization) về cơ bản thì đây là quá trình tối ưu hoá việc thiết kế cơ sở dữ liệu hoặc tổ chức các dữ liệu của bạn vào các bảng.
 
-Just this week I ran across some code where someone had imploded an array and inserted it into a single field in a database. Normalizing that would be to treat element of that array as a separate row in a child table (ie a one-to-many relationship).
+Chỉ trong tuần vừa rồi tôi gặp 1 đoạn code mà họ tách nó ra thành 1 mảng và thêm chúng vào như 1 trường trong cơ sở dữ liệu. Quá trình chuẩn hoá là xử lý từng phần tử của mảng đó như 1 dòng riêng biệt trong bảng 
+con (tương đương 1 mối quan hệ 1 nhiều).
 
-This also came up in [Best method for storing a list of user IDs](https://stackoverflow.com/questions/620645/best-method-for-storing-a-list-of-user-ids):
+Điều này cũng được nhắc tới tại [Phương thức tốt nhất để lưu 1 danh sách các ID của người dùng](https://stackoverflow.com/questions/620645/best-method-for-storing-a-list-of-user-ids):
 
-> I've seen in other systems that the list is stored in a serialized PHP array.
+> Tôi cũng đã từng thấy 1 hệ thống khác lưu trữ danh sách trong 1 mảng tuần tự của PHP.
 
-But lack of normalization comes in many forms.
+Tuy nhiên vấn đề thiếu chuẩn hoá vẫn còn nhiều dạng.
 
-More:
+Xem thêm:
 
-- [Normalization: How far is far enough?](http://www.techrepublic.com/article/normalization-how-far-is-far-enough/)
-- [SQL by Design: Why You Need Database Normalization ](http://www.sqlmag.com/Article/ArticleID/4887/sql_server_4887.html)
+- [Chuẩn hoá: bao nhiêu là đủ?](http://www.techrepublic.com/article/normalization-how-far-is-far-enough/)
+- [SQL by Design: Tại sao bạn cần chuẩn hoá cơ sở dữ liệu ](http://www.sqlmag.com/Article/ArticleID/4887/sql_server_4887.html)
 
-**10. Normalizing too much**
+**10. Chuẩn hoá quá nhiều**
 
-This may seem like a contradiction to the previous point but normalization, like many things, is a tool. It is a means to an end and not an end in and of itself. I think many developers forget this and start treating a "means" as an "end". Unit testing is a prime example of this.
+Nhìn chung vấn đề này trái ngước với vấn đề trước nhưng việc chuẩn hoá cũng như là những việc khác, nó được xem là một công cụ. Nó không có điểm kết thúc cụ thể nào cả. Tôi nghĩ là rất nhiều những lập trình viên quên mất điều này, bắt đầu hiểu sai 1 "công cụ" thành 1 thứ có thể "kết thúc" vấn đề. Unit testing là một ví dụ điển hình về điều này.
 
-I once worked on a system that had a huge hierarchy for clients that went something like:
+Lúc tôi làm việc trên 1 hệ thống có hệ thống phân cấp cho người dùng cực lớn, tôi đã gặp 1 vài điều như này:
 
 Licensee -&gt;  Dealer Group -&gt; Company -&gt; Practice -&gt; ...
 
-such that you had to join about 11 tables together before you could get any meaningful data. It was a good example of normalization taken too far.
+giống như kiểu bạn phải join khoảng 11 bảng khác nhau trước khi bạn muốn lấy bất kỳ dữ liệu gì. Nó là 1 ví dụ rất tốt cho việc chuẩn hoá quá nhiều.
 
-More to the point, careful and considered denormalization can have huge performance benefits but you have to be really careful when doing this.
+Một điều nữa, hãy cẩn thận và xem xét việc tối ưu chuẩn hoá có thể mang lại những lợi ích đáng kể nhưng bạn cũng phải cẩn thận khi làm điều này.
 
-More:
+Xem thêm:
 
-- [Why too much Database Normalization can be a Bad Thing](http://www.selikoff.net/blog/2008/11/19/why-too-much-database-normalization-can-be-a-bad-thing/)
-- [How far to take normalization in database design?](https://stackoverflow.com/questions/496508/how-far-to-take-normalization-in-database-design)
-- [When Not to Normalize your SQL Database](http://www.25hoursaday.com/weblog/CommentView.aspx?guid=cc0e740c-a828-4b9d-b244-4ee96e2fad4b)
-- [Maybe Normalizing Isn't Normal](http://www.codinghorror.com/blog/archives/001152.html)
-- [The Mother of All Database Normalization Debates on Coding Horror](http://highscalability.com/mother-all-database-normalization-debates-coding-horror)
+- [Vì sao chuẩn hoá cơ sở dữ liệu quá nhiều cũng không tốt](http://www.selikoff.net/blog/2008/11/19/why-too-much-database-normalization-can-be-a-bad-thing/)
+- [Thiết kế cơ sở dữ liệu tới mức nào là đủ chuẩn?](https://stackoverflow.com/questions/496508/how-far-to-take-normalization-in-database-design)
+- [Khi nào bạn không cần chuẩn hoá cơ sở dữ liệu](http://www.25hoursaday.com/weblog/CommentView.aspx?guid=cc0e740c-a828-4b9d-b244-4ee96e2fad4b)
+- [Chuẩn hoá có thể không chuẩn](http://www.codinghorror.com/blog/archives/001152.html)
+- [Nguyên nhân các cuộc tranh luận về chuẩn hoá trên Coding Horror](http://highscalability.com/mother-all-database-normalization-debates-coding-horror)
 
-**11. Using exclusive arcs**
+**11. Sử dụng các exclusive arcs ( truy vấn lòng vòng )**
 
-An exclusive arc is a common mistake where a table is created with two or more foreign keys where one and only one of them can be non-null.  **Big mistake.** For one thing it becomes that much harder to maintain data integrity. After all, even with referential integrity, nothing is preventing two or more of these foreign keys from being set (complex check constraints notwithstanding).
+Việc truy vấn lòng vòng là 1 trong những lỗi thường gặp khi 1 bảng được tạo ra với 2 hay nhiều khoá ngoại và 1 trong số đó lại có thể không null.  **Lỗi lớn đấy.** Đây là điều khiến nó trở lên khó khăn hơn nhiều trong việc duy trì tính toàn vẹn dữ liệu. Sau tất cả, ngay cả khi sử dụng các ràng buộc tham chiếu vẫn không có gì ngăn được việc đặt 2 hay nhiều hơn các khoá ngoại (mặc dù đã kiểm tra các ràng buộc phức tạp).
 
-From [A Practical Guide to Relational Database Design](http://books.google.com.au/books?id=7ZAk0YiKQV0C&pg=PA110&lpg=PA110&dq=%22exclusive+arc%22+database&source=bl&ots=AyNPWsac__&sig=gBFIerXckQlVpRdd6ycI5JEgq3U&hl=en&ei=PzGzSZfrFcPVkAWWyZDZBA&sa=X&oi=book_result&resnum=1&ct=result):
+từ bài viết [Hướng dẫn thực hành thiết kế cơ sở dữ liệu quan hệ](http://books.google.com.au/books?id=7ZAk0YiKQV0C&pg=PA110&lpg=PA110&dq=%22exclusive+arc%22+database&source=bl&ots=AyNPWsac__&sig=gBFIerXckQlVpRdd6ycI5JEgq3U&hl=en&ei=PzGzSZfrFcPVkAWWyZDZBA&sa=X&oi=book_result&resnum=1&ct=result):
 
-> We have strongly advised against exclusive arc construction wherever possible, for the good reason that they can be awkward to write code and pose more maintenance difficulties.
+  > Chúng tôi không khuyến khích xây dựng các câu truy vấn phức tạp bất cứ khi nào có thể, vì 1 lý do rằng nó có thể rất lộn xộn khi viết code và khiến việc bảo trì khó khăn.
 
-**12. Not doing performance analysis on queries at all**
+**12. Không phân tích hiệu suất các lệnh truy vấn**
 
 Pragmatism reigns supreme, particularly in the database world. If you're sticking to principles to the point that they've become a dogma then you've quite probably made mistakes. Take the example of the aggregate queries from above. The aggregate version might look "nice" but its performance is woeful. A performance comparison should've ended the debate (but it didn't) but more to the point: spouting such ill-informed views in the first place is ignorant, even dangerous.
 
-**13. Over-reliance on UNION ALL and particularly UNION constructs**
+Theo chủ nghĩa thực dụng, đặc biệt là trong môi trường cơ sở dữ liệu. Nếu bạn vẫn đang cố giữ nguyên tắc khi chúng đã trở nên độc đoán thì bạn thực sự đang mắc sai lầm đấy. Lấy 1 ví dụ về các truy vấn sử dụng GROUP bên trên. Phiên bản sử dụng GROUP có vẻ nhìn "ổn" nhưng hiệu suất của nó thì tệ. Việc tranh luận về so sánh về hiệu suất nên kết thúc(nhưng nó không) nhưng nhớ thêm 1 điều rằng : việc sử dụng quá nhiều view thông báo xấu ngay trong vị trí đầu tiên là không ổn, thậm chí nó còn nguy hiểm.
 
-A UNION in SQL terms merely concatenates congruent data sets, meaning they have the same type and number of columns. The difference between them is that UNION ALL is a simple concatenation and should be preferred wherever possible whereas a UNION will implicitly do a DISTINCT to remove duplicate tuples.
 
-UNIONs, like DISTINCT, have their place. There are valid applications. But if you find yourself doing a lot of them, particularly in subqueries, then you're probably doing something wrong. That might be a case of poor query construction or a poorly designed data model forcing you to do such things.
+**13. Quá tin vào UNION ALL và đặc biệt là cấu trúc UNION**
 
-UNIONs, particularly when used in joins or dependent subqueries, can cripple a database. Try to avoid them whenever possible.
+Một UNION trong SQL chỉ đơn thuần nối các tập dữ liệu đồng nhất, có nghĩa là chúng phải có cùng kiểu và số cột. Sự khác biệt giữa chúng là UNION ALL là một sự ghép nối đơn giản và nên được ưu tiên hơn bất cứ khi nào có thể, trong khi một UNION ngầm sẽ sử dụng một DISTINCT để loại bỏ các bản sao trùng lặp.
 
-**14. Using OR conditions in queries**
+UNIONs, như DISTINCT, có chỗ của chúng. Có các ứng dụng hợp lệ. Nhưng nếu bạn thấy mình đang sử dụng chúng rất nhiều, đặc biệt trong các truy vấn phụ, thì có thể bạn đang làm sai gì đó. Đó có thể là trường hợp xây dựng truy vấn kém hoặc mô hình dữ liệu được thiết kế kém buộc bạn phải làm những việc như vậy.
 
-This might seem harmless. After all, ANDs are OK. OR should be OK too right? Wrong. Basically an AND condition **restricts** the data set whereas an OR condition **grows** it but not in a way that lends itself to optimisation. Particularly when the different OR conditions might intersect thus forcing the optimizer to effectively to a DISTINCT operation on the result.
+UNION, đặc biệt khi sử dụng trong các kết nối hoặc các truy vấn phụ phụ thuộc, có thể làm tê liệt cơ sở dữ liệu. Cố gắng tránh sử dụng chúng bất cứ khi nào có thể.
+
+**14. sử dụng các điều kiện or trong câu truy vấn**
+
+Cái này có vẻ vô hại. Và sau tất cả, ANDs cũng OK. Vậy mệnh đề OR liệu có thực sự tốt? Sai rồi. Thông thường điều kiện AND sẽ **hạn chế** tập dữ liệu trong khi điều kiện OR **làm tăng** tập dữ liệu nhưng không phải theo cách khiến chúng được tối ưu. Đặc biệt là khi các điều kiện OR khác nhau có thể giao nhau khiến cho việc tối ưu hóa hiệu quả hơn với các phép DISTINCT.
 
 Bad:
 
@@ -204,38 +208,41 @@ Better:
 
 ... WHERE a IN (2, 5, 11)
 
-Now your SQL optimizer may effectively turn the first query into the second. But it might not. Just don't do it.
+Bây giờ việc tối ưu lênh SQL của bạn có thể hiệu quả từ câu truy vấn đầu tiên tới câu thứ 2. Nhưng cũng có thể không. Đừng làm như thế.
 
-**15. Not designing their data model to lend itself to high-performing solutions**
+**15. Không thiết kế các mô hình dữ liệu để vay mượn các giải pháp hiệu suất cao**
 
-This is a hard point to quantify. It is typically observed by its effect. If you find yourself writing gnarly queries for relatively simple tasks or that queries for finding out relatively straightforward information are not efficient, then you probably have a poor data model.
+Đây là 1 điểm khó đánh giá. Nó thường được đánh giá thông qua hiệu quả cửa nó. Nếu bạn thấy mình đang viết các lệnh truy vấn cho các việc đơn giản hoặc các truy vấn chỉ để tìm kiếm các thông tin tương đối đơn giản nhưng lại không có hiệu quả, bạn chắc chắn đang sử dụng một mô hình dữ liệu tệ ( mô hình dữ liệu có hiệu suất kém).
 
-In some ways this point summarizes all the earlier ones but it's more of a cautionary tale that doing things like query optimisation is often done first when it should be done second. First and foremost you should ensure you have a good data model before trying to optimize the performance. As Knuth said:
+Bằng 1 cách nào đó điều này bao gồm cả các điều trước đó nhưng nó lại có thêm 1 cảnh báo là các câu truy vấn đên được tối ưu đầu tiên trong khi nó chỉ nên hoàn thành thứ 2. Đầu tiên và cũng là quan trọng nhất, bạn nên chắc chắn mô hình dữ liệu của bạn tốt trước khi cố gắng tối ưu hiệu suất. Giống như Knuth đã nói:
 
-> Premature optimization is the root of all evil
+> Tối ưu hoá sớm là nguồn gốc của mọi thứ tệ hại.
 
-**16. Incorrect use of Database Transactions**
+**16. Sử dụng Database Transactions sai**
 
-All data changes for a specific process should be atomic. I.e. If the operation succeeds, it does so fully. If it fails, the data is left unchanged. - There should be no possibility of 'half-done' changes.
+Tất cả các sự kiện thay đổi dữ liệu trong 1 tiến trình nên tuân thủ mô hình nguyên tử (atomic). Ví dụ nếu các hành động thực hiện thành công, nó sẽ cập nhật đầy đủ. Nếu nó không thành công, dữ liệu sẽ không thay đổi. Không để các thay đổi kiểu "hoàn thành 1 nửa".
 
-Ideally, the simplest way to achieve this is that the entire system design should strive to support all data changes through single INSERT/UPDATE/DELETE statements. In this case, no special transaction handling is needed, as your database engine should do so automatically.
+Lý tưởng nhất, cách tốt nhất để đạt được điều này là thiết kế toàn bộ hệ thống nên cố gắng hỗ trợ toàn bộ thay đổi dữ liệu qua từng câu lệnh INSERT/UPDATE/DELETE. Trong trường hợp này, không có xử lý transaction đặc biệt nào cần thiết cả, vì engine cơ sở dữ liệu của bạn nên làm điều này tự động.
 
-However, if any processes do require multiple statements be performed as a unit to keep the data in a consistent state, then appropriate Transaction Control is necessary.
+tuy nhiên, nếu bất kì tiến trình nào yêu cầu nhiều câu lệnh thực hiện như là 1 đơn vị lưu trữ dữ liệu trong trạng thái thích hợp, khi đó việc quản lý các giao tác (Transition Control) là cần thiết.
 
-- Begin a Transaction before the first statement.
-- Commit the Transaction after the last statement.
-- On any error, Rollback the Transaction. And very NB! Don't forget to skip/abort all statements that follow after the error.
+- Khởi động Giao tác trước câu lệnh đầu tiên.
+- Commit Giao tác sau câu lệnh cuối cùng.
+- Khi gặp bất kỳ lỗi nào, hoàn tác lại giao tác đó ngay. Và chú ý quan trọng nữa! Đừng quên bỏ qua/ dừng tất cả các câu lệnh sau các lỗi.
 
+ *And very NB = And very Note Bene = And very Note Well*
+ 
 Also recommended to pay careful attention to the subtelties of how your database connectivity layer, and database engine interact in this regard. 
+Gợi ý khác nữa là hãy chú ý tới các dịch vụ phụ khác trong việc kết nối các lớp và engine tương tác của cơ sở dữ liệu trong vấn đề này.
 
-**17. Not understanding the 'set-based' paradigm**
+**17. Không hiểu mô hình 'set-based'**
 
-The SQL language follows a specific paradigm suited to specific kinds of problems. Various vendor-specific extensions notwithstanding, the language struggles to deal with problems that are trivial in langues like Java, C#, Delphi etc.
+  Ngôn ngữ SQL tuân theo mô hình cụ thể phù hợp với các loại vấn đề cụ thể. Mặc dù cung cấp nhiều phần mở rộng cụ thể, việc xung đột ngôn ngữ đẻ giải quyết vấn đề này là không đáng kể trong các ngôn ngữ như Java, C#, Delphi,...
 
-This lack of understanding manifests itself in a few ways.
+Phần còn lại thì có vài cách  biểu thị:
 
-- Inappropriately imposing too much procedural or imperative logic on the databse.
-- Inappropriate or excessive use of cursors. Especially when a single query would suffice.
-- Incorrectly assuming that triggers fire once per row affected in multi-row updates.
+- Áp dụng quá nhiều các phương pháp hoặc các logic bắt buộc không cần thiết lên cơ sở dữ liệu.
+- Sử dụng con trỏ không phù hợp quá nhiều. Nhất là khi câu truy vấn đơn giản đã là đủ.
+- Một giả định không chính xác rằng các trigger sẽ thực hiện trên mỗi dòng trong khi cập nhập cùng 1 lúc nhiều dòng.
 
-Determine clear division of responsibility, and strive to use the appropriate tool to solve each problem.
+Để xác định phân chia các trách nhiệm rõ ràng, và cố gắng sử dụng các công cụ thích hợp để giải quyết từng vấn đề.
