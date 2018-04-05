@@ -144,7 +144,7 @@ con (tương đương 1 mối quan hệ 1 nhiều).
 
 Điều này cũng được nhắc tới tại [Phương thức tốt nhất để lưu 1 danh sách các ID của người dùng](https://stackoverflow.com/questions/620645/best-method-for-storing-a-list-of-user-ids):
 
-> Tôi cũng đã từng thấy 1 hệ thống khác lưu trữ danh sách trong 1 mảng tuần tự của PHP.
+> Tôi cũng đã từng thấy 1 hệ thống khác lưu trữ danh sách **id** trong 1 mảng tuần tự của PHP.
 
 Tuy nhiên vấn đề thiếu chuẩn hoá vẫn còn nhiều dạng.
 
@@ -163,7 +163,7 @@ Licensee -&gt;  Dealer Group -&gt; Company -&gt; Practice -&gt; ...
 
 giống như kiểu bạn phải join khoảng 11 bảng khác nhau trước khi bạn muốn lấy bất kỳ dữ liệu gì. Nó là 1 ví dụ rất tốt cho việc chuẩn hoá quá nhiều.
 
-Một điều nữa, hãy cẩn thận và xem xét việc tối ưu chuẩn hoá có thể mang lại những lợi ích đáng kể nhưng bạn cũng phải cẩn thận khi làm điều này.
+Một điều nữa, hãy cẩn thận và xem xét việc ~~tối ưu chuẩn hoá~~(denormalization - **chuẩn hóa ngược**) có thể mang lại những lợi ích đáng kể nhưng bạn cũng phải cẩn thận khi làm điều này.
 
 Xem thêm:
 
@@ -183,9 +183,7 @@ từ bài viết [Hướng dẫn thực hành thiết kế cơ sở dữ liệu 
 
 **12. Không phân tích hiệu suất các lệnh truy vấn**
 
-Pragmatism reigns supreme, particularly in the database world. If you're sticking to principles to the point that they've become a dogma then you've quite probably made mistakes. Take the example of the aggregate queries from above. The aggregate version might look "nice" but its performance is woeful. A performance comparison should've ended the debate (but it didn't) but more to the point: spouting such ill-informed views in the first place is ignorant, even dangerous.
-
-Theo chủ nghĩa thực dụng, đặc biệt là trong môi trường cơ sở dữ liệu. Nếu bạn vẫn đang cố giữ nguyên tắc khi chúng đã trở nên độc đoán thì bạn thực sự đang mắc sai lầm đấy. Lấy 1 ví dụ về các truy vấn sử dụng GROUP bên trên. Phiên bản sử dụng GROUP có vẻ nhìn "ổn" nhưng hiệu suất của nó thì tệ. Việc tranh luận về so sánh về hiệu suất nên kết thúc(nhưng nó không) nhưng nhớ thêm 1 điều rằng : việc sử dụng quá nhiều view thông báo xấu ngay trong vị trí đầu tiên là không ổn, thậm chí nó còn nguy hiểm.
+Theo chủ nghĩa thực dụng, đặc biệt là trong môi trường cơ sở dữ liệu. Nếu bạn vẫn đang cố giữ nguyên tắc khi chúng đã trở nên độc đoán thì bạn thực sự đang mắc sai lầm đấy. Lấy 1 ví dụ về các truy vấn sử dụng GROUP bên trên. ~~Phiên bản~~(**Câu lệnh**) sử dụng GROUP có vẻ nhìn "ổn" nhưng hiệu suất của nó thì tệ. Việc tranh luận về so sánh về hiệu suất nên kết thúc(nhưng nó không) nhưng nhớ thêm 1 điều rằng : việc sử dụng quá nhiều view thông báo xấu ngay trong vị trí đầu tiên là không ổn, thậm chí nó còn nguy hiểm.
 
 
 **13. Quá tin vào UNION ALL và đặc biệt là cấu trúc UNION**
@@ -198,7 +196,7 @@ UNION, đặc biệt khi sử dụng trong các kết nối hoặc các truy v�
 
 **14. sử dụng các điều kiện or trong câu truy vấn**
 
-Cái này có vẻ vô hại. Và sau tất cả, ANDs cũng OK. Vậy mệnh đề OR liệu có thực sự tốt? Sai rồi. Thông thường điều kiện AND sẽ **hạn chế** tập dữ liệu trong khi điều kiện OR **làm tăng** tập dữ liệu nhưng không phải theo cách khiến chúng được tối ưu. Đặc biệt là khi các điều kiện OR khác nhau có thể giao nhau khiến cho việc tối ưu hóa hiệu quả hơn với các phép DISTINCT.
+Cái này có vẻ vô hại. Và sau tất cả, ANDs cũng OK. Vậy mệnh đề OR liệu có thực sự tốt? Sai rồi. Thông thường điều kiện AND sẽ **hạn chế** tập dữ liệu trong khi điều kiện OR **làm tăng**(option: **mở rộng**) tập dữ liệu nhưng không phải theo cách khiến chúng được tối ưu. Đặc biệt là khi các điều kiện OR khác nhau có thể giao nhau khiến cho việc tối ưu hóa ~~hiệu quả hơn với các phép DISTINCT~~(forcing the optimizer to effectively to a DISTINCT operation on the result - **phải thực hiện một lệnh DISTINCT trong kết quả trả về**).
 
 Bad:
 
@@ -208,7 +206,7 @@ Better:
 
 ... WHERE a IN (2, 5, 11)
 
-Bây giờ việc tối ưu lênh SQL của bạn có thể hiệu quả từ câu truy vấn đầu tiên tới câu thứ 2. Nhưng cũng có thể không. Đừng làm như thế.
+Bây giờ, ~~việc tối ưu lênh SQL của bạn có thể hiệu quả từ câu truy vấn đầu tiên tới câu thứ 2~~ (your SQL optimizer may effectively turn the first query into the second - **bộ tối ưu hoá SQL của bạn có thể chuyển câu lệnh truy vấn đầu tiên thành câu lệnh truy vấn thứ hai**). Nhưng cũng có thể không. Đừng làm như thế.
 
 **15. Không thiết kế các mô hình dữ liệu để vay mượn các giải pháp hiệu suất cao**
 
@@ -220,7 +218,7 @@ Bằng 1 cách nào đó điều này bao gồm cả các điều trước đó 
 
 **16. Sử dụng Database Transactions sai**
 
-Tất cả các sự kiện thay đổi dữ liệu trong 1 tiến trình nên tuân thủ mô hình nguyên tử (atomic). Ví dụ nếu các hành động thực hiện thành công, nó sẽ cập nhật đầy đủ. Nếu nó không thành công, dữ liệu sẽ không thay đổi. Không để các thay đổi kiểu "hoàn thành 1 nửa".
+Tất cả các sự kiện thay đổi dữ liệu trong 1 tiến trình nên tuân thủ mô hình nguyên tử (atomic). Ví dụ nếu các hành động thực hiện thành công, nó sẽ cập nhật đầy đủ. Nếu nó không thành công, dữ liệu sẽ không thay đổi. Không để các thay đổi kiểu ~~"hoàn thành 1 nửa"~~ (**nửa vời**).
 
 Lý tưởng nhất, cách tốt nhất để đạt được điều này là thiết kế toàn bộ hệ thống nên cố gắng hỗ trợ toàn bộ thay đổi dữ liệu qua từng câu lệnh INSERT/UPDATE/DELETE. Trong trường hợp này, không có xử lý transaction đặc biệt nào cần thiết cả, vì engine cơ sở dữ liệu của bạn nên làm điều này tự động.
 
